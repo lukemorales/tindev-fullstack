@@ -65,3 +65,54 @@ export const FooterButton = styled.TouchableOpacity`
   elevation: 2;
   /* box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.5); */
 `;
+
+export const MatchContainer = styled.View`
+  background: rgba(0, 0, 0, 0.85);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  elevation: 5;
+`;
+
+export const MatchSymbol = styled.Image`
+  margin-bottom: 50px;
+  height: 60px;
+  resize-mode: contain;
+`;
+
+export const MatchAvatar = styled.Image`
+  width: 160px;
+  height: 160px;
+  border-radius: 80px;
+  border-width: 5px;
+  border-color: #44475a;
+`;
+
+export const MatchName = styled.Text`
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  margin-top: 20px;
+`;
+
+export const MatchBio = styled.Text`
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  padding: 0 30px;
+`;
+
+export const MatchButtonText = styled.Text`
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  margin-top: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+`;

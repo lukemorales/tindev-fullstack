@@ -17,6 +17,7 @@
     "react-native-reanimated": "^1.2.0",
     "react-navigation": "^3.11.1",
     "reactotron-react-native": "^3.6.4",
+    "socket.io-client": "^2.2.0",
     "styled-components": "^4.3.2"
   },
   "devDependencies": {

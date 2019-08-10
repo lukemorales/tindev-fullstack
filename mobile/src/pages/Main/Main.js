@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import io from 'socket.io-client';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {
@@ -13,6 +14,12 @@ import {
   Bio,
   Footer,
   FooterButton,
+  MatchContainer,
+  MatchSymbol,
+  MatchAvatar,
+  MatchName,
+  MatchBio,
+  MatchButtonText,
 } from './Main_Styles';
 
 import logo from '~/assets/logo.png';
@@ -25,6 +32,7 @@ import api from '~/services/api';
 export default function Main({ navigation }) {
   const ID = navigation.getParam('user');
   const [users, setUsers] = useState([]);
+  const [itsAMatch, setItsAMatch] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -36,6 +44,16 @@ export default function Main({ navigation }) {
 
       setUsers(response.data);
     })();
+  }, [ID]);
+
+  useEffect(() => {
+    const socket = io('http://localhost:3333', {
+      query: { user: ID },
+    });
+
+    socket.on('match', dev => {
+      setItsAMatch(dev);
+    });
   }, [ID]);
 
   async function handleLogout() {
@@ -95,6 +113,23 @@ export default function Main({ navigation }) {
             <Image source={like} />
           </FooterButton>
         </Footer>
+      )}
+
+      {itsAMatch && (
+        <MatchContainer>
+          <MatchSymbol source={itsamatch} />
+          <MatchAvatar
+            source={{
+              uri: itsAMatch.avatar,
+            }}
+          />
+          <MatchName>{itsAMatch.name}</MatchName>
+          <MatchBio>{itsAMatch.bio}</MatchBio>
+
+          <TouchableOpacity onPress={() => setItsAMatch(null)}>
+            <MatchButtonText>Close</MatchButtonText>
+          </TouchableOpacity>
+        </MatchContainer>
       )}
     </Container>
   );
