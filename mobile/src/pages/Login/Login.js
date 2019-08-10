@@ -29,11 +29,11 @@ export default function Login({ navigation }) {
       username,
     });
 
-    const { _id: ID } = response.data;
+    const { _id: user } = response.data;
 
-    await AsyncStorage.setItem('user', ID);
+    await AsyncStorage.setItem('user', user);
 
-    navigation.navigate('Main', { ID });
+    navigation.navigate('Main', { user });
   }
 
   return (

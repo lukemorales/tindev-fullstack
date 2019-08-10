@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Image } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {
   Container,
   CardsContainer,
@@ -15,13 +18,12 @@ import {
 import logo from '~/assets/logo.png';
 import like from '~/assets/like.png';
 import dislike from '~/assets/dislike.png';
+import itsamatch from '~/assets/itsamatch.png';
 
 import api from '~/services/api';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-community/async-storage';
 
 export default function Main({ navigation }) {
-  const ID = navigation.getParam('ID');
+  const ID = navigation.getParam('user');
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
