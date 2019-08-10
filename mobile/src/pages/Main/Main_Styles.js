@@ -1,4 +1,5 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
+import { Animated } from 'react-native';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -15,7 +16,7 @@ export const CardsContainer = styled.View`
   max-height: 500px;
 `;
 
-export const Card = styled.View`
+export const AnimatedCard = styled(Animated.View)`
   background: #44475a;
   border: 1px solid #44475a;
   border-radius: 8px;
@@ -25,6 +26,29 @@ export const Card = styled.View`
   left: 0;
   right: 0;
   bottom: 0;
+  elevation: 3;
+`;
+
+export const AnimatedTag = styled(Animated.View)`
+  position: absolute;
+  top: 36px;
+  left: ${({ action }) => (action === 'like' ? '20px' : 'auto')};
+  right: ${({ action }) => (action === 'dislike' ? '20px' : 'auto')};
+  transform: ${({ action }) =>
+    action === 'like' ? 'rotate(-30deg)' : 'rotate(30deg)'};
+  z-index: 2;
+  border-width: 6px;
+  border-color: ${({ action }) => (action === 'like' ? 'green' : 'red')};
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TagText = styled.Text`
+  color: ${({ action }) => (action === 'like' ? 'green' : 'red')};
+  font-size: 32px;
+  font-weight: bold;
+  padding: 4px 10px;
 `;
 
 export const Avatar = styled.Image`

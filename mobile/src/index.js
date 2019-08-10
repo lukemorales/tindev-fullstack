@@ -1,7 +1,10 @@
 import React from 'react';
 import { StatusBar, YellowBox } from 'react-native';
 
-YellowBox.ignoreWarnings(['Unrecognized WebSocket']);;
+YellowBox.ignoreWarnings([
+  'Unrecognized WebSocket',
+  'Warning: componentWillMount',
+]);
 
 import '~/config/ReactotronConfig';
 
