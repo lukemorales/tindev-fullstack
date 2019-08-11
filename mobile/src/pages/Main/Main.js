@@ -113,24 +113,29 @@ export default function Main({ navigation }) {
 
   const nextCardScale = position.x.interpolate({
     inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
-    outputRange: [1, 0.85, 1],
+    outputRange: [1, 0.9, 1],
     extrapolate: 'clamp',
   });
 
   const likeOpacity = position.x.interpolate({
     inputRange: [50, SCREEN_WIDTH / 2],
-    outputRange: [0, 1],
+    outputRange: [0, 0.8],
     extrapolate: 'clamp',
   });
 
   const dislikeOpacity = position.x.interpolate({
     inputRange: [-SCREEN_WIDTH / 2, -50],
-    outputRange: [1, 0],
+    outputRange: [0.8, 0],
     extrapolate: 'clamp',
   });
 
   const panReponder = PanResponder.create({
-    onStartShouldSetPanResponder: (evt, gesture) => true,
+    onMoveShouldSetPanResponder: (evt, gestureState) => {
+      if (itsAMatch) {
+        return false;
+      }
+      return true;
+    },
     onPanResponderMove: (evt, gestureState) => {
       position.setValue({ x: gestureState.dx, y: gestureState.dy });
     },
@@ -139,7 +144,9 @@ export default function Main({ navigation }) {
         handleLike();
         Animated.spring(position, {
           toValue: { x: SCREEN_WIDTH + 100, y: gestureState.dy },
-        }).start();
+        }).start(() => {
+          position.setValue({ x: 0, y: 0 });
+        });
       } else if (gestureState.dx < -120) {
         handleDislike();
         Animated.spring(position, {
@@ -236,7 +243,10 @@ export default function Main({ navigation }) {
           <MatchName>{itsAMatch.name}</MatchName>
           <MatchBio>{itsAMatch.bio}</MatchBio>
 
-          <TouchableOpacity onPress={() => setItsAMatch(null)}>
+          <TouchableOpacity
+            onPress={() => setItsAMatch(null)}
+            hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}
+          >
             <MatchButtonText>Close</MatchButtonText>
           </TouchableOpacity>
         </MatchContainer>

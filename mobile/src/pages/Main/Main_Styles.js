@@ -99,7 +99,8 @@ export const MatchContainer = styled.View`
   left: 0;
   justify-content: center;
   align-items: center;
-  elevation: 5;
+  elevation: 15;
+  z-index: 999;
 `;
 
 export const MatchSymbol = styled.Image`
