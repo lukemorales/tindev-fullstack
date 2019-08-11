@@ -144,6 +144,7 @@ export default function Main({ navigation }) {
         handleLike();
         Animated.spring(position, {
           toValue: { x: SCREEN_WIDTH + 100, y: gestureState.dy },
+          useNativeDriver: true,
         }).start(() => {
           position.setValue({ x: 0, y: 0 });
         });
@@ -151,10 +152,12 @@ export default function Main({ navigation }) {
         handleDislike();
         Animated.spring(position, {
           toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy },
+          useNativeDriver: true,
         }).start();
       } else {
         Animated.spring(position, {
           toValue: { x: 0, y: 0 },
+          useNativeDriver: true,
         }).start();
       }
     },
